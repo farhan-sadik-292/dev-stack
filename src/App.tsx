@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Technologies from "./components/Technologies";
+import Footer from "./components/Footer";
 
 import technologiesData from "./data/technologies.json";
 import type { Technology } from "./types/technology";
@@ -20,8 +21,9 @@ function App() {
       try {
         setLoading(true);
 
-        // Simulates fetching data from a JSON source.
-        await new Promise((resolve) => setTimeout(resolve, 700));
+        await new Promise((resolve) =>
+          setTimeout(resolve, 700),
+        );
 
         setTechnologies(technologiesData as Technology[]);
       } catch {
@@ -48,10 +50,14 @@ function App() {
       technology,
     ]);
 
-    toast.success(`${technology.name} added to your stack.`);
+    toast.success(
+      `${technology.name} added to your stack.`,
+    );
   };
 
-  const handleRemoveFromStack = (technologyId: string) => {
+  const handleRemoveFromStack = (
+    technologyId: string,
+  ) => {
     const technology = stack.find(
       (item) => item.id === technologyId,
     );
@@ -63,7 +69,9 @@ function App() {
     );
 
     if (technology) {
-      toast.info(`${technology.name} removed from your stack.`);
+      toast.info(
+        `${technology.name} removed from your stack.`,
+      );
     }
   };
 
@@ -73,7 +81,9 @@ function App() {
     }
 
     setStack([]);
-    toast.info("All technologies removed from your stack.");
+    toast.info(
+      "All technologies removed from your stack.",
+    );
   };
 
   return (
@@ -94,8 +104,8 @@ function App() {
               <h2>Loading Technologies...</h2>
 
               <p>
-                Please wait while we prepare the technology
-                collection.
+                Please wait while we prepare the
+                technology collection.
               </p>
             </div>
           </section>
@@ -109,24 +119,57 @@ function App() {
           />
         )}
 
-        <section id="projects" className="placeholder-section">
+        <section
+          id="projects"
+          className="info-section"
+        >
           <div className="container">
-            <h2>Projects</h2>
+            <p className="section-label">PROJECTS</p>
+
+            <h2>Build With Your Stack</h2>
+
+            <p>
+              Combine modern technologies to create
+              powerful and scalable projects.
+            </p>
           </div>
         </section>
 
-        <section id="about" className="placeholder-section">
+        <section
+          id="about"
+          className="info-section info-section-light"
+        >
           <div className="container">
-            <h2>About</h2>
+            <p className="section-label">ABOUT</p>
+
+            <h2>Everything You Need to Build</h2>
+
+            <p>
+              Dev Stack helps developers explore
+              technologies and organize the tools they
+              want to use in their projects.
+            </p>
           </div>
         </section>
 
-        <section id="contact" className="placeholder-section">
+        <section
+          id="contact"
+          className="info-section"
+        >
           <div className="container">
-            <h2>Contact</h2>
+            <p className="section-label">CONTACT</p>
+
+            <h2>Have Questions?</h2>
+
+            <p>
+              Explore the available resources or get in
+              touch with the Dev Stack community.
+            </p>
           </div>
         </section>
       </main>
+
+      <Footer />
 
       <ToastContainer
         position="top-right"
