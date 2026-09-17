@@ -12,12 +12,28 @@ function App() {
 
   const handleAddToStack = (technology: Technology) => {
     setStack((currentStack) => {
-      if (currentStack.some((item) => item.id === technology.id)) {
+      if (
+        currentStack.some(
+          (item) => item.id === technology.id,
+        )
+      ) {
         return currentStack;
       }
 
       return [...currentStack, technology];
     });
+  };
+
+  const handleRemoveFromStack = (technologyId: string) => {
+    setStack((currentStack) =>
+      currentStack.filter(
+        (technology) => technology.id !== technologyId,
+      ),
+    );
+  };
+
+  const handleRemoveAll = () => {
+    setStack([]);
   };
 
   return (
@@ -31,6 +47,8 @@ function App() {
           technologies={technologies}
           stack={stack}
           onAdd={handleAddToStack}
+          onRemove={handleRemoveFromStack}
+          onRemoveAll={handleRemoveAll}
         />
 
         <section id="projects" className="placeholder-section">
