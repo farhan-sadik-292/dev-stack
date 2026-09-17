@@ -1,19 +1,37 @@
+import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import Technologies from "./components/Technologies";
+import technologiesData from "./data/technologies.json";
+import type { Technology } from "./types/technology";
 
 function App() {
+  const technologies = technologiesData as Technology[];
+
+  const [stack, setStack] = useState<Technology[]>([]);
+
+  const handleAddToStack = (technology: Technology) => {
+    setStack((currentStack) => {
+      if (currentStack.some((item) => item.id === technology.id)) {
+        return currentStack;
+      }
+
+      return [...currentStack, technology];
+    });
+  };
+
   return (
     <>
       <Navbar />
+
       <main>
         <Hero />
 
-        <section id="technologies" className="placeholder-section">
-          <div className="container">
-            <h2>Technologies</h2>
-            <p>Technology cards will be added in Step 4.</p>
-          </div>
-        </section>
+        <Technologies
+          technologies={technologies}
+          stack={stack}
+          onAdd={handleAddToStack}
+        />
 
         <section id="projects" className="placeholder-section">
           <div className="container">
