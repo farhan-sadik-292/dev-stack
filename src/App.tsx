@@ -1,33 +1,55 @@
 import { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Technologies from "./components/Technologies";
 import Footer from "./components/Footer";
 
-import technologiesData from "./data/technologies.json";
 import type { Technology } from "./types/technology";
 
-import "react-toastify/dist/ReactToastify.css";
+import technologiesUrl from "./data/technologies.json?url";
 
 function App() {
-  const [technologies, setTechnologies] = useState<Technology[]>([]);
-  const [stack, setStack] = useState<Technology[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [technologies, setTechnologies] =
+    useState<Technology[]>([]);
+
+  const [stack, setStack] =
+    useState<Technology[]>([]);
+
+  const [loading, setLoading] =
+    useState(true);
+
+  const [error, setError] =
+    useState<string | null>(null);
+
+  const [menuOpen, setMenuOpen] =
+    useState(false);
 
   useEffect(() => {
     const loadTechnologies = async () => {
       try {
         setLoading(true);
 
-        await new Promise((resolve) =>
-          setTimeout(resolve, 700),
-        );
+        const response =
+          await fetch(technologiesUrl);
 
-        setTechnologies(technologiesData as Technology[]);
-      } catch {
-        toast.error("Failed to load technologies.");
+        if (!response.ok) {
+          throw new Error(
+            "Failed to load technology data.",
+          );
+        }
+
+        const data: Technology[] =
+          await response.json();
+
+        setTechnologies(data);
+      } catch (err) {
+        console.error(err);
+
+        setError(
+          "Unable to load technologies. Please try again.",
+        );
       } finally {
         setLoading(false);
       }
@@ -36,12 +58,18 @@ function App() {
     loadTechnologies();
   }, []);
 
-  const handleAddToStack = (technology: Technology) => {
+  const handleAddToStack = (
+    technology: Technology,
+  ) => {
     if (
       stack.some(
         (item) => item.id === technology.id,
       )
     ) {
+      toast.warn(
+        `${technology.name} is already in your stack.`,
+      );
+
       return;
     }
 
@@ -56,21 +84,23 @@ function App() {
   };
 
   const handleRemoveFromStack = (
-    technologyId: string,
+    id: string,
   ) => {
-    const technology = stack.find(
-      (item) => item.id === technologyId,
-    );
+    const removedTechnology =
+      stack.find(
+        (technology) => technology.id === id,
+      );
 
     setStack((currentStack) =>
       currentStack.filter(
-        (item) => item.id !== technologyId,
+        (technology) =>
+          technology.id !== id,
       ),
     );
 
-    if (technology) {
+    if (removedTechnology) {
       toast.info(
-        `${technology.name} removed from your stack.`,
+        `${removedTechnology.name} removed from your stack.`,
       );
     }
   };
@@ -81,105 +111,52 @@ function App() {
     }
 
     setStack([]);
+
     toast.info(
       "All technologies removed from your stack.",
     );
   };
 
   return (
-    <>
-      <Navbar />
+    <div className="app">
+      <Navbar
+        menuOpen={menuOpen}
+        setMenuOpen={setMenuOpen}
+      />
 
       <main>
         <Hero />
 
-        {loading ? (
-          <section
-            className="loading-section"
-            id="technologies"
-          >
-            <div className="container loading-content">
-              <div className="loading-spinner" />
-
-              <h2>Loading Technologies...</h2>
-
-              <p>
-                Please wait while we prepare the
-                technology collection.
-              </p>
-            </div>
+        {loading && (
+          <section className="loading-section">
+            <div className="spinner" />
+            <p>
+              Loading technologies...
+            </p>
           </section>
-        ) : (
+        )}
+
+        {!loading && error && (
+          <section className="error-section">
+            <p>{error}</p>
+          </section>
+        )}
+
+        {!loading && !error && (
           <Technologies
             technologies={technologies}
             stack={stack}
             onAdd={handleAddToStack}
-            onRemove={handleRemoveFromStack}
+            onRemove={
+              handleRemoveFromStack
+            }
             onRemoveAll={handleRemoveAll}
           />
         )}
-
-        <section
-          id="projects"
-          className="info-section"
-        >
-          <div className="container">
-            <p className="section-label">PROJECTS</p>
-
-            <h2>Build With Your Stack</h2>
-
-            <p>
-              Combine modern technologies to create
-              powerful and scalable projects.
-            </p>
-          </div>
-        </section>
-
-        <section
-          id="about"
-          className="info-section info-section-light"
-        >
-          <div className="container">
-            <p className="section-label">ABOUT</p>
-
-            <h2>Everything You Need to Build</h2>
-
-            <p>
-              Dev Stack helps developers explore
-              technologies and organize the tools they
-              want to use in their projects.
-            </p>
-          </div>
-        </section>
-
-        <section
-          id="contact"
-          className="info-section"
-        >
-          <div className="container">
-            <p className="section-label">CONTACT</p>
-
-            <h2>Have Questions?</h2>
-
-            <p>
-              Explore the available resources or get in
-              touch with the Dev Stack community.
-            </p>
-          </div>
-        </section>
       </main>
 
       <Footer />
-
-      <ToastContainer
-        position="top-right"
-        autoClose={2500}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        pauseOnHover
-      />
-    </>
+    </div>
   );
 }
 

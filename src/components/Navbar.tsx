@@ -1,50 +1,75 @@
 import { useState } from "react";
 
-function Navbar() {
-    const [menuOpen, setMenuOpen] = useState(false);
+const navLinks = [
+  { label: "Home", href: "#home" },
+  { label: "Technologies", href: "#technologies" },
+  { label: "Projects", href: "#projects" },
+  { label: "About", href: "#about" },
+  { label: "Contact", href: "#contact" },
+];
 
-    return (
-        <header className="navbar">
-            <div className="container navbar-inner">
-                <a href="#" className="logo">
-                    <img src="/assets/logo-text.png" alt="Dev Stack" />
-                </a>
-
-                <nav className={`nav-links ${menuOpen ? "nav-links-open" : ""}`}>
-                    <a href="#home" onClick={() => setMenuOpen(false)}>
-                        Home
-                    </a>
-                    <a href="#technologies" onClick={() => setMenuOpen(false)}>
-                        Technologies
-                    </a>
-                    <a href="#projects" onClick={() => setMenuOpen(false)}>
-                        Projects
-                    </a>
-                    <a href="#about" onClick={() => setMenuOpen(false)}>
-                        About
-                    </a>
-                    <a href="#contact" onClick={() => setMenuOpen(false)}>
-                        Contact
-                    </a>
-                </nav>
-
-                <div className="nav-actions">
-                    <button className="sign-in">Sign In</button>
-                    <button className="sign-up">Sign Up</button>
-                </div>
-
-                <button
-                    className="menu-button"
-                    aria-label="Toggle navigation menu"
-                    onClick={() => setMenuOpen(!menuOpen)}
-                >
-                    <span />
-                    <span />
-                    <span />
-                </button>
-            </div>
-        </header>
-    );
+interface NavbarProps {
+  menuOpen: boolean;
+  setMenuOpen: (open: boolean) => void;
 }
 
-export default Navbar;
+export default function Navbar({
+  menuOpen,
+  setMenuOpen,
+}: NavbarProps) {
+  return (
+    <header className="navbar">
+      <div className="navbar-inner">
+        <button
+          className="mobile-menu-button"
+          type="button"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle navigation menu"
+          aria-expanded={menuOpen}
+        >
+          <img
+            src="/assets/hamburger.png"
+            alt=""
+          />
+        </button>
+
+        <a
+          href="#home"
+          className="brand"
+          onClick={() => setMenuOpen(false)}
+        >
+          <img
+            src="/assets/logo-text.png"
+            alt="Dev Stack"
+          />
+        </a>
+
+        <nav
+          className={`nav-links ${
+            menuOpen ? "nav-links-open" : ""
+          }`}
+        >
+          {navLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              onClick={() => setMenuOpen(false)}
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+
+        <div className="nav-actions">
+          <a href="#contact" className="sign-in">
+            Sign In
+          </a>
+
+          <a href="#contact" className="sign-up">
+            Sign Up
+          </a>
+        </div>
+      </div>
+    </header>
+  );
+}

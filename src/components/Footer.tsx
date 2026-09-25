@@ -1,59 +1,100 @@
-function Footer() {
-    return (
-        <footer className="footer">
-            <div className="container footer-content">
-                <div className="footer-brand">
-                    <img
-                        src="/assets/logo-text.png"
-                        alt="Dev Stack"
-                    />
+export default function Footer() {
+  return (
+    <footer className="footer">
+      <div className="footer-main">
+        <div className="footer-brand">
+          <a
+            href="#home"
+            className="footer-logo"
+          >
+            <img
+              src="/assets/logo-text.png"
+              alt="Dev Stack"
+            />
+          </a>
 
-                    <p>
-                        Build your perfect development stack with modern
-                        technologies and tools.
-                    </p>
-                </div>
+          <p>
+            Curated tools, technologies, and resources
+            for developers building modern software.
+          </p>
 
-                <div className="footer-links">
-                    <div className="footer-column">
-                        <h3>Product</h3>
+          <div className="social-links">
+            <a
+              href="https://github.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub
+            </a>
 
-                        <a href="#technologies">Technologies</a>
-                        <a href="#projects">Projects</a>
-                        <a href="#about">About</a>
-                    </div>
+            <a
+              href="https://twitter.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Twitter
+            </a>
 
-                    <div className="footer-column">
-                        <h3>Resources</h3>
+            <a
+              href="https://www.linkedin.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              LinkedIn
+            </a>
+          </div>
+        </div>
 
-                        <a href="#technologies">Documentation</a>
-                        <a href="#technologies">Learning</a>
-                        <a href="#technologies">Community</a>
-                    </div>
+        <div
+          className="footer-column"
+          id="projects"
+        >
+          <h3>PRODUCT</h3>
 
-                    <div className="footer-column">
-                        <h3>Company</h3>
+          <a href="#home">Home</a>
+          <a href="#technologies">
+            Technologies
+          </a>
+          <a href="#projects">Projects</a>
+        </div>
 
-                        <a href="#about">About Us</a>
-                        <a href="#contact">Contact</a>
-                        <a href="#contact">Support</a>
-                    </div>
-                </div>
-            </div>
+        <div
+          className="footer-column"
+          id="about"
+        >
+          <h3>COMPANY</h3>
 
-            <div className="container footer-bottom">
-                <p>
-                    © {new Date().getFullYear()} Dev Stack. All rights
-                    reserved.
-                </p>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+          <a href="#about">Careers</a>
+        </div>
 
-                <div>
-                    <a href="#contact">Privacy</a>
-                    <a href="#contact">Terms</a>
-                </div>
-            </div>
-        </footer>
-    );
+        <div
+          className="footer-column"
+          id="contact"
+        >
+          <h3>LEGAL</h3>
+
+          <a href="#contact">
+            Privacy Policy
+          </a>
+
+          <a href="#contact">
+            Terms of Service
+          </a>
+        </div>
+      </div>
+
+      <div className="footer-bottom">
+        <p>
+          © 2026 Dev Stack. All rights reserved.
+        </p>
+
+        <div>
+          <a href="#contact">Privacy</a>
+          <a href="#contact">Terms</a>
+        </div>
+      </div>
+    </footer>
+  );
 }
-
-export default Footer;

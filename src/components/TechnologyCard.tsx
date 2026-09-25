@@ -1,53 +1,65 @@
 import type { Technology } from "../types/technology";
 
 interface TechnologyCardProps {
-    technology: Technology;
-    isAdded: boolean;
-    onAdd: (technology: Technology) => void;
+  technology: Technology;
+  isAdded: boolean;
+  onAdd: (technology: Technology) => void;
 }
 
-function TechnologyCard({
-    technology,
-    isAdded,
-    onAdd,
+export default function TechnologyCard({
+  technology,
+  isAdded,
+  onAdd,
 }: TechnologyCardProps) {
-    return (
-        <article className="technology-card">
-            <div className="technology-card-top">
-                <div className="technology-icon">
-                    <img src={technology.icon} alt={`${technology.name} icon`} />
-                </div>
+  return (
+    <article className="technology-card">
+      <div className="technology-card-top">
+        <img
+          src={technology.icon}
+          alt={`${technology.name} icon`}
+          className="technology-icon"
+        />
 
-                <span className="technology-badge">{technology.badge}</span>
-            </div>
+        {technology.badge && (
+          <span className="technology-badge">
+            {technology.badge}
+          </span>
+        )}
+      </div>
 
-            <h3>{technology.name}</h3>
+      <h3>{technology.name}</h3>
 
-            <p className="technology-description">
-                {technology.description}
-            </p>
+      <p className="technology-description">
+        {technology.description}
+      </p>
 
-            <div className="technology-meta">
-                <span>{technology.category}</span>
+      <div className="technology-meta">
+        <span className="category-chip">
+          {technology.category}
+        </span>
 
-                <span>★ {technology.rating}</span>
-            </div>
+        <span className="difficulty">
+          {technology.difficulty}
+        </span>
 
-            <div className="technology-footer">
-                <span className="difficulty">
-                    {technology.difficulty}
-                </span>
+        <span className="rating">
+          <span>★</span>
+          {technology.rating}
+        </span>
+      </div>
 
-                <button
-                    className={`add-stack-button ${isAdded ? "added" : ""}`}
-                    disabled={isAdded}
-                    onClick={() => onAdd(technology)}
-                >
-                    {isAdded ? "✓ Added to Stack" : "+ Add to Stack"}
-                </button>
-            </div>
-        </article>
-    );
+      <button
+        type="button"
+        className={`add-stack-button ${
+          isAdded ? "added" : ""
+        }`}
+        disabled={isAdded}
+        onClick={() => onAdd(technology)}
+      >
+        {isAdded
+          ? "✓ Added to Stack"
+          : "Add to Stack"}
+      </button>
+    </article>
+  );
 }
-
-export default TechnologyCard;

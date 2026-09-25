@@ -1,41 +1,44 @@
-function Hero() {
-    return (
-        <section className="hero" id="home">
-            <div className="container hero-content">
-                <div className="hero-text">
-                    <p className="hero-label">BUILD YOUR DREAM STACK</p>
+export default function Hero() {
+  return (
+    <section className="hero" id="home">
+      <div className="hero-content">
+        <div className="hero-copy">
+          <h1>
+            Build Your Ideal
+            <span>Development Stack</span>
+          </h1>
 
-                    <h1>
-                        Build Your
-                        <br />
-                        <span>Perfect Dev Stack</span>
-                    </h1>
+          <p>
+            Explore frontend, backend, database, and tooling
+            options, compare them side by side, and put
+            together the stack that fits your next project.
+          </p>
 
-                    <p className="hero-description">
-                        Explore modern technologies and build a powerful development stack
-                        that matches your goals, skills, and projects.
-                    </p>
+          <div className="hero-actions">
+            <a
+              href="#technologies"
+              className="primary-button"
+            >
+              Explore Technologies
+            </a>
 
-                    <div className="hero-actions">
-                        <a href="#technologies" className="primary-button">
-                            Explore Technologies
-                        </a>
+            <a
+              href="#technologies"
+              className="secondary-button"
+            >
+              Learn More
+            </a>
+          </div>
+        </div>
 
-                        <a href="#about" className="secondary-button">
-                            Learn More
-                        </a>
-                    </div>
-                </div>
-
-                <div className="hero-image">
-                    <img
-                        src="/assets/banner-stack.png"
-                        alt="Development technology stack"
-                    />
-                </div>
-            </div>
-        </section>
-    );
+        <div className="hero-image-wrapper">
+          <img
+            src="/assets/banner-stack.png"
+            alt="Development technology stack"
+            className="hero-image"
+          />
+        </div>
+      </div>
+    </section>
+  );
 }
-
-export default Hero;

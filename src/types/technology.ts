@@ -1,22 +1,24 @@
 export type Difficulty =
-    | "Beginner-Friendly"
-    | "Intermediate"
-    | "Advanced";
+  | "Beginner-Friendly"
+  | "Intermediate"
+  | "Advanced";
+
+export type TechnologyCategory =
+  | "Frontend"
+  | "Backend"
+  | "Database"
+  | "Language"
+  | "Styling"
+  | "DevOps"
+  | "Tools";
 
 export interface Technology {
-    id: string;
-    name: string;
-    category:
-    | "Frontend"
-    | "Backend"
-    | "Database"
-    | "Language"
-    | "Styling"
-    | "DevOps"
-    | "Tools";
-    description: string;
-    icon: string;
-    rating: number;
-    difficulty: Difficulty;
-    badge: string;
+  id: string;
+  name: string;
+  category: TechnologyCategory;
+  description: string;
+  icon: string;
+  rating: number;
+  difficulty: Difficulty;
+  badge: string;
 }
