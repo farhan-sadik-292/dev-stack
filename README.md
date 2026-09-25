@@ -1,32 +1,60 @@
-# React + TypeScript + Vite
+# Dev Stack Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Dev Stack Builder is a modern, responsive web application that enables developers to explore, compare, and organize their ideal frontend, backend, database, and tooling technologies side by side.
 
-Currently, two official plugins are available:
+## Live Project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **GitHub Repository:** [https://github.com/your-username/A-5-Dev-Stack-Builder](https://github.com/your-username/A-5-Dev-Stack-Builder)
+- **Live Site:** [https://your-live-site.netlify.app](https://your-live-site.netlify.app)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Technologies Used
 
-## Expanding the Oxlint configuration
+- **React.js** (v18+)
+- **TypeScript**
+- **Vite**
+- **CSS3**
+- **JSON** (Asynchronous data fetching via `fetch` API & Vite URL assets)
+- **React-Toastify**
+- **Git & GitHub**
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+---
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+## Main Features
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+1. **Technology Collection:** Explore categorized technologies featuring icons, ratings, categories, badges, and difficulty indicators.
+2. **Personal Development Stack:** Dynamically add technologies to a persistent sidebar with duplicate detection and single-click mass or individual removals.
+3. **Responsive Design:** Mobile-friendly sticky navigation with menu drawer, fluid flex/grid layouts, and responsive desktop sidebar.
+
+---
+
+## Core React Concepts (Assignment Questions)
+
+### 1. What is JSX, and why is it used in React?
+JSX (JavaScript XML) is a syntax extension for JavaScript that allows developers to write HTML-like structures directly inside JavaScript code. It is used in React because it makes building UI structures intuitive and declarative, combining component rendering logic directly with display structure.
+
+### 2. What is the difference between props and state?
+- **Props (Properties):** Read-only data passed down from a parent component to a child component. The child component cannot mutate props directly.
+- **State:** Mutable, managed data created within a component using hooks like `useState`. When state changes, React re-renders the component.
+
+### 3. What does `useState` do, and where did you use it?
+`useState` is a React Hook that declares a state variable in a functional component. It returns the current state value and a function to update it. In this project, `useState` is used in `App.tsx` to manage `stack` (selected items) and `isLoading`, and in `Navbar.tsx` for `mobileMenuOpen`.
+
+### 4. What does `useEffect` do, and why did you need it to load JSON?
+`useEffect` allows side effects in functional components. We used `useEffect` in `App.tsx` to perform asynchronous data fetching from `./data/technologies.json` when the app first mounts, preventing infinite render loops.
+
+### 5. Why does every `.map()` item need a unique `key`?
+React uses `key` props during its Virtual DOM diffing process to identify which items have changed, been added, or removed. Unique keys ensure optimal re-rendering performance and preserve state stability across list updates.
+
+### 6. What is conditional rendering? Show one place used.
+Conditional rendering displays specific UI elements based on runtime conditions.
+*Example from `YourStack.tsx`:*
+```tsx
+{count === 0 ? (
+  <div className="empty-stack-state">
+    <p className="empty-title">No technologies selected yet.</p>
+  </div>
+) : (
+  <ul className="stack-item-list">...</ul>
+)}

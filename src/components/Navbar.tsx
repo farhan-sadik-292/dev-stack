@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 const navLinks = [
   { label: "Home", href: "#home" },
   { label: "Technologies", href: "#technologies" },
